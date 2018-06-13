@@ -10,21 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace WpfPort
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SearchForm.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SearchForm : Window
     {
-        public MainWindow()
+        public SearchForm()
         {
             InitializeComponent();
-            MDIParent1 win = new MDIParent1();
-            win.Show();
         }
     }
 }

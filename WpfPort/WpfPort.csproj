@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -47,12 +49,69 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditDatabase.xaml.cs">
+      <DependentUpon>EditDatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExternalDatabaseList.xaml.cs">
+      <DependentUpon>ExternalDatabaseList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HorizontalArithmatic.xaml.cs">
+      <DependentUpon>HorizontalArithmatic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="KeysSearch.xaml.cs">
+      <DependentUpon>KeysSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewDatabase.xaml.cs">
+      <DependentUpon>NewDatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumberHistoryForm.xaml.cs">
+      <DependentUpon>NumberHistoryForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumberTrace.xaml.cs">
+      <DependentUpon>NumberTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OddEvenSearch.xaml.cs">
+      <DependentUpon>OddEvenSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResultForm.xaml.cs">
+      <DependentUpon>ResultForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchForm.xaml.cs">
+      <DependentUpon>SearchForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SqlClass.cs" />
+    <Compile Include="SumBlindArithmatic.xaml.cs">
+      <DependentUpon>SumBlindArithmatic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VerticalArithmatic.xaml.cs">
+      <DependentUpon>VerticalArithmatic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="YearPattern.xaml.cs">
+      <DependentUpon>YearPattern.xaml</DependentUpon>
+    </Compile>
+    <Page Include="EditDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExternalDatabaseList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HorizontalArithmatic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KeysSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,8 +124,51 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MDIParent1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NumberHistoryForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NumberTrace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OddEvenSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResultForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SumBlindArithmatic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerticalArithmatic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="YearPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MDIParent1.xaml.cs">
+      <DependentUpon>MDIParent1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

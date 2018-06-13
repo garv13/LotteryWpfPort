@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfPort.ExternalDatabaseList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfPort"
+        mc:Ignorable="d"
+        Title="ExternalDatabaseList">
+    <Grid Height="265" Width="460">
+        <Canvas Name="panel1" Height="264" Width="460" Background="LightGray" Margin="-10,-15,10,16" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <Button Name="btnSetInternalDatabase" Height="23" Width="158" TabIndex="2" Visibility="Hidden" Click="btnSetInternalDatabase_Click" Margin="289,220,13,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" >Set As Internal Database</Button>
+            <Button Name="btnDelete" Height="23" Width="158" TabIndex="1" Visibility="Hidden" Click="btnDelete_Click" Margin="-7,220,309,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" >Delete Selected Database</Button>
+        </Canvas>
+    </Grid>
+</Window>

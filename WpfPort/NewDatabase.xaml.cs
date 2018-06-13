@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WpfPort
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NewDatabase.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NewDatabase : Window
     {
-        public MainWindow()
+        public NewDatabase()
         {
             InitializeComponent();
-            MDIParent1 win = new MDIParent1();
-            win.Show();
         }
     }
 }

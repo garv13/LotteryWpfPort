@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfPort.MDIParent1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfPort"
+        mc:Ignorable="d"
+        Title="MDIParent1">
+    <Grid Height="453" Width="632">
+        <Menu Name="menuStrip1" Height="24" Width="632" TabIndex="4" Margin="-10,-15,10,444" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <MenuItem Header="Report" Name="filleToolStripMenuItem" >
+                <MenuItem Header="Make Search" Name="inToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Number History Search" Name="numberHistorySearchToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Number Trace" Name="numberTraceToolStripMenuItem" Click="numberTraceToolStripMenuItem_Click" ></MenuItem>
+                <MenuItem Header="Odd Even Search" Name="oddEvenSearchToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Sum Blind Search" Name="sumBlindSearchToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Pattern Search" Name="yearPatternSearchToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Keys Search" Name="keysSearchToolStripMenuItem" ></MenuItem>
+                <MenuItem Header="Arithmatic Searcs" Name="arithmaticSearcsToolStripMenuItem" >
+                    <MenuItem Header="Horizontal Arithmatic" Name="horizontalArithmaticToolStripMenuItem" >
+                        <MenuItem Header="Without Autocalculation" Name="withoutAutocalculationToolStripMenuItem1" ></MenuItem>
+                        <MenuItem Header="With Autocalculation" Name="withAutocalculationToolStripMenuItem1" ></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Vertical Arithma" Name="verticalArithmaToolStripMenuItem" >
+                        <MenuItem Header="Without Autocalculation" Name="withoutAutocalculationToolStripMenuItem" ></MenuItem>
+                        <MenuItem Header="With Autocalculation" Name="withAutocalculationToolStripMenuItem" ></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Forcast Number" Name="forcastNumberToolStripMenuItem" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Configuration" Name="configurationToolStripMenuItem" >
+                <MenuItem Header="External Database" Name="existingDatabasesToolStripMenuItem" >
+                    <MenuItem Header="List" Name="listToolStripMenuItem" ></MenuItem>
+                    <MenuItem Header="Import New Database" Name="importNewDataToolStripMenuItem" ></MenuItem>
+                    <MenuItem Header="Edit Database" Name="editDatabaseToolStripMenuItem" ></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Internal Databse" Name="importNewDataBaseToolStripMenuItem" >
+                    <MenuItem Header="Edit Internal Database" Name="editDatabaseToolStripMenuItem1" ></MenuItem>
+                    <MenuItem Header="Select Internal Database" Name="selectInternalDatabaseToolStripMenuItem" ></MenuItem>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StatusBar Name="statusStrip" Height="22" Width="632" TabIndex="2" Margin="-10,416,10,15" HorizontalAlignment="Right" VerticalAlignment="Bottom" ></StatusBar>
+    </Grid>
+</Window>
