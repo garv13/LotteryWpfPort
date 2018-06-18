@@ -13,7 +13,7 @@ namespace WpfPort
         private static SqlConnection con;
         private static SqlDataAdapter adp1;
         private static SqlDataAdapter adp2;
-        private static string sqlConn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\garvj\Downloads\leke_Project\SystamaticDBSearch.mdf;Integrated Security=True;Connect Timeout=30";
+        private static string sqlConn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Varun Bhatia\source\repos\LotteryWpfPort\WpfPort\DataBase\SystamaticDBSearch.mdf;Integrated Security=True;Connect Timeout=30";
 
 
         public static void ImportDatabase(DataSet dsExcell, string DatabaseName)

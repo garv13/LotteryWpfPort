@@ -6,10 +6,92 @@
         xmlns:local="clr-namespace:WpfPort"
         mc:Ignorable="d"
         Title="ExternalDatabaseList">
-    <Grid Height="265" Width="460">
-        <Canvas Name="panel1" Height="264" Width="460" Background="LightGray" Margin="-10,-15,10,16" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
-            <Button Name="btnSetInternalDatabase" Height="23" Width="158" TabIndex="2" Visibility="Hidden" Click="btnSetInternalDatabase_Click" Margin="289,220,13,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" >Set As Internal Database</Button>
-            <Button Name="btnDelete" Height="23" Width="158" TabIndex="1" Visibility="Hidden" Click="btnDelete_Click" Margin="-7,220,309,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" >Delete Selected Database</Button>
-        </Canvas>
+    <Window.Resources>
+        <SolidColorBrush  x:Key="BackgroundColor">#646464</SolidColorBrush>
+        <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <TextBox Text="{Binding Path=Text,
+                                                    RelativeSource={RelativeSource TemplatedParent}, 
+                                                    Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="textSource" 
+                                     Background="Transparent" 
+                                     Panel.ZIndex="2" />
+                            <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Foreground" Value="Transparent"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File" HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+        </Menu>
+        <TextBox AcceptsReturn="True" />
+        <Grid x:Name="MenuGrid" DockPanel.Dock="Top" Background="{StaticResource BackgroundColor}" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="ExternalGamesButton" Content="extG" Grid.Column="0" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="FullCellButton" Content="ex" Grid.Column="1" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ExactCellButton" Content="ext" Grid.Column="2" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ManualCodeButton" Content="hasa" Grid.Column="3" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="CombinatationButton" Content="uas" Grid.Column="5" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="UpwardsButton" Content="extG" Grid.Column="6" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="SwitchButton" Content="extG" Grid.Column="7" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ClearSearchButton" Content="extG" Grid.Column="8" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="SearchButton" Content="extG" Grid.Column="9" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <TextBlock x:Name="databaseNameTextBlock" Text="{Binding}" Grid.Column="4" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10" FontSize="20" />
+        </Grid>
+        <Grid x:Name="StatusBarGrid" Grid.Row="2" Background="{StaticResource BackgroundColor}" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AddButton" Content="button" Background="{StaticResource BackgroundColor}" Foreground="white" Grid.Column="0"/>
+            <TextBox x:Name="VoucherTextBox" Style="{StaticResource placeHolder}" Tag="Load Voucher here.." Background="{StaticResource BackgroundColor}" Grid.Column="1"/>
+            <Button x:Name="UpdateDbButton" Content="Update Db" Grid.Column="4" Background="{StaticResource BackgroundColor}"/>
+        </Grid>
+        <DataGrid x:Name="DataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="10"/>
     </Grid>
 </Window>
