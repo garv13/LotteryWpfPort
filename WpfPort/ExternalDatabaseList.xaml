@@ -47,6 +47,9 @@
     <Grid x:Name="MainGrid" Background="{StaticResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.15*"/>
+           
+
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.15*"/>
         </Grid.RowDefinitions>
@@ -82,8 +85,9 @@
             <Button x:Name="SwitchButton" Content="{StaticResource MyImage}" Grid.Column="7" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
             <Button x:Name="ClearSearchButton" Content="{StaticResource MyImage}" Grid.Column="8" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
             <Button x:Name="SearchButton" Content="{StaticResource MyImage}" Grid.Column="9" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <TextBlock x:Name="databaseNameTextBlock" Text="DataBase name" Grid.Column="4" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10" TextAlignment="Justify" FontSize="20" Margin="121,0,122,-27" />
         </Grid>
+        <TextBlock x:Name="databaseNameTextBlock" Text="DataBase name" Grid.Row="1" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Justify" FontSize="20" />
+
         <Grid x:Name="StatusBarGrid" Grid.Row="2" Background="{StaticResource BackgroundColor}" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*"/>
@@ -96,7 +100,7 @@
             <TextBox x:Name="VoucherTextBox" Style="{StaticResource placeHolder}" Tag="Load Voucher here.." Background="{StaticResource BackgroundColor}" Grid.Column="1"/>
             <Button x:Name="UpdateDbButton" Content="Update Db" Grid.Column="4" Background="{StaticResource BackgroundColor}"/>
         </Grid>
-        <DataGrid x:Name="DataGrid" Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}">
+        <DataGrid x:Name="DataGrid" Grid.Row="2" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}">
             <DataGrid.Resources>
                 <Style TargetType="ScrollBar">
                     <Setter Property="Background" Value="{StaticResource BackgroundColor}" />

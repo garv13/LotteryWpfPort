@@ -23,8 +23,7 @@ namespace WpfPort
         public MainWindow()
         {
             InitializeComponent();
-            ExternalDatabaseList win = new ExternalDatabaseList();
-            win.Show();
+            
         }
     }
 }
