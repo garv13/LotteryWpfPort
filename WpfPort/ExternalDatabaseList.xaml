@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="ExternalDatabaseList">
     <Window.Resources>
-        <SolidColorBrush  x:Key="BackgroundColor">#646464</SolidColorBrush>
+        <BitmapImage x:Key="HeadBitmapImage" UriSource="Sample-icon.png"/>
+        <Image x:Key="MyImage" x:Shared="False" Source="{StaticResource HeadBitmapImage}"/>
+        
+        <!--<Image x:Key="MyImage" Source ="Sample-icon.png"/>-->
+        <SolidColorBrush  x:Key="BackgroundColor">#000000</SolidColorBrush>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -40,7 +44,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Background="{StaticResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.15*"/>
             <RowDefinition Height="*"/>
@@ -55,7 +59,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
         </Menu>
-        <TextBox AcceptsReturn="True" />
+        <TextBox AcceptsReturn="True" Background="{StaticResource BackgroundColor}"/>
         <Grid x:Name="MenuGrid" DockPanel.Dock="Top" Background="{StaticResource BackgroundColor}" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*"/>
@@ -69,16 +73,16 @@
                 <ColumnDefinition Width="0.1*"/>
                 <ColumnDefinition Width="0.1*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="ExternalGamesButton" Content="extG" Grid.Column="0" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="FullCellButton" Content="ex" Grid.Column="1" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="ExactCellButton" Content="ext" Grid.Column="2" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="ManualCodeButton" Content="hasa" Grid.Column="3" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="CombinatationButton" Content="uas" Grid.Column="5" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="UpwardsButton" Content="extG" Grid.Column="6" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="SwitchButton" Content="extG" Grid.Column="7" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="ClearSearchButton" Content="extG" Grid.Column="8" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <Button x:Name="SearchButton" Content="extG" Grid.Column="9" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-            <TextBlock x:Name="databaseNameTextBlock" Text="{Binding}" Grid.Column="4" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10" FontSize="20" />
+            <Button x:Name="ExternalGamesButton" Click="ExternalGamesButton_Click" Content="{StaticResource MyImage}" Grid.Column="0" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="FullCellButton" Click="FullCellButton_Click" Content="{StaticResource MyImage}" Grid.Column="1" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ExactCellButton" Content="{StaticResource MyImage}" Grid.Column="2" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ManualCodeButton" Content="{StaticResource MyImage}" Grid.Column="3" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="CombinatationButton" Content="{StaticResource MyImage}" Grid.Column="5" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="UpwardsButton" Content="{StaticResource MyImage}" Grid.Column="6" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="SwitchButton" Content="{StaticResource MyImage}" Grid.Column="7" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="ClearSearchButton" Content="{StaticResource MyImage}" Grid.Column="8" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <Button x:Name="SearchButton" Content="{StaticResource MyImage}" Grid.Column="9" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
+            <TextBlock x:Name="databaseNameTextBlock" Text="DataBase name" Grid.Column="4" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10" TextAlignment="Justify" FontSize="20" Margin="121,0,122,-27" />
         </Grid>
         <Grid x:Name="StatusBarGrid" Grid.Row="2" Background="{StaticResource BackgroundColor}" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
             <Grid.ColumnDefinitions>
@@ -92,6 +96,23 @@
             <TextBox x:Name="VoucherTextBox" Style="{StaticResource placeHolder}" Tag="Load Voucher here.." Background="{StaticResource BackgroundColor}" Grid.Column="1"/>
             <Button x:Name="UpdateDbButton" Content="Update Db" Grid.Column="4" Background="{StaticResource BackgroundColor}"/>
         </Grid>
-        <DataGrid x:Name="DataGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="10"/>
+        <DataGrid x:Name="DataGrid" Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}">
+            <DataGrid.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
+                    <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
+                    <Setter Property="Visibility" Value="Collapsed" />
+
+
+                </Style>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+                    <Setter Property="Foreground" Value="Green" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
     </Grid>
 </Window>

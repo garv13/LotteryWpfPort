@@ -23,7 +23,7 @@ namespace WpfPort
         public MainWindow()
         {
             InitializeComponent();
-            MDIParent1 win = new MDIParent1();
+            ExternalDatabaseList win = new ExternalDatabaseList();
             win.Show();
         }
     }

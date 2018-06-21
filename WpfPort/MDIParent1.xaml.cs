@@ -53,7 +53,7 @@ namespace WpfPort
         {
             ExternalDatabaseList oExternalDatabaseList = new ExternalDatabaseList();
             oExternalDatabaseList.Owner = this;
-            oExternalDatabaseList.btnDelete.Visibility = Visibility.Visible;
+            //oExternalDatabaseList.btnDelete.Visibility = Visibility.Visible;
             oExternalDatabaseList.Show();
         }
 
@@ -97,7 +97,7 @@ namespace WpfPort
         {
             ExternalDatabaseList oExternalDatabaseList = new ExternalDatabaseList();
             oExternalDatabaseList.Content = "Select  Internal Database";
-            oExternalDatabaseList.btnSetInternalDatabase.Visibility = Visibility.Visible;
+            //oExternalDatabaseList.btnSetInternalDatabase.Visibility = Visibility.Visible;
             oExternalDatabaseList.Owner = this;
             oExternalDatabaseList.Show();
         }

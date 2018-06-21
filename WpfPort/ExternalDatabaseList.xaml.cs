@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace WpfPort
 {
@@ -112,6 +113,33 @@ namespace WpfPort
             //    {
             //        MessageBox.Show(ex.Message);
             //    }
+        }
+
+        private void ExternalGamesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // write here 
+            using (SQLiteConnection conn = new SQLiteConnection(@"Data Source=C:\Users\Varun Bhatia\Downloads\result\data.sqlite"))
+            {
+                conn.Open();
+
+                //SQLiteCommand command = new SQLiteCommand("SELECT * FROM 'dbo.DBList' LIMIT 0,30", conn);
+                //SQLiteDataReader reader = command.ExecuteReader();
+                DataSet dataSet = new DataSet();
+                SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter("SELECT * FROM 'dbo.DBList' LIMIT 0,30", conn);
+                dataAdapter.Fill(dataSet);
+
+                DataGrid.ItemsSource = dataSet.Tables[0].DefaultView;
+
+                //while (reader.Read())
+                //    Console.WriteLine(reader["DBName"]);
+                //DataGrid.ItemsSource = reader;
+                //reader.Close();
+            }
+        }
+
+        private void FullCellButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
