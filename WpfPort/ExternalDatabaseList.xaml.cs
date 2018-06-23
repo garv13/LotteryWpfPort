@@ -25,6 +25,37 @@ namespace WpfPort
         public ExternalDatabaseList()
         {
             InitializeComponent();
+
+            List<IconTemplate> iconList = new List<IconTemplate>();
+            iconList.Add(new IconTemplate()
+            {
+                ImageIconSource = "Sample-icon.png",
+                Name = "External Games",
+                ImageTag = "tag"
+            });
+            iconList.Add(new IconTemplate()
+            {
+                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
+                Name = "Full Cell",
+                ImageTag = "tag"
+            });
+            iconList.Add(new IconTemplate()
+            {
+                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
+                Name = "Exact Cell",
+                ImageTag = "tag"
+            });
+            System.Windows.Controls.Image ds1 = new System.Windows.Controls.Image();
+
+            iconList.Add(new IconTemplate()
+            {
+                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
+                Name = "Manual Code",
+                ImageTag = "tag"
+            });
+            //Bind it with the ListBox  
+            this.IconPanelTemplate1.ItemsSource = iconList;
+            this.IconPanelTemplate2.ItemsSource = iconList;
         }
 
         static DataTable dt;
@@ -137,9 +168,10 @@ namespace WpfPort
             }
         }
 
-        private void FullCellButton_Click(object sender, RoutedEventArgs e)
+        private void IconButton_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Controls.Button bs = sender as System.Windows.Controls.Button;
+            string str = bs.Tag.ToString();
         }
     }
 }

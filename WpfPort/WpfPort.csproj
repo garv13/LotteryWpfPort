@@ -83,6 +83,7 @@
     <Compile Include="HorizontalArithmatic.xaml.cs">
       <DependentUpon>HorizontalArithmatic.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IconTemplate.cs" />
     <Compile Include="KeysSearch.xaml.cs">
       <DependentUpon>KeysSearch.xaml</DependentUpon>
     </Compile>
