@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,10 @@ namespace WpfPort
 {
     class SqlClass
     {
-        private static SqlConnection con;
-        private static SqlDataAdapter adp1;
-        private static SqlDataAdapter adp2;
-        private static string sqlConn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Varun Bhatia\source\repos\LotteryWpfPort\WpfPort\DataBase\SystamaticDBSearch.mdf;Integrated Security=True;Connect Timeout=30";
+        private static SQLiteConnection con;
+        private static SQLiteDataAdapter adp1;
+        private static SQLiteDataAdapter adp2;
+        private static string sqlConn = @"Data Source=C:\Users\Varun Bhatia\Downloads\result\data.sqlite";
 
 
         public static void ImportDatabase(DataSet dsExcell, string DatabaseName)
@@ -21,13 +22,13 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlCommand cmd = new SqlCommand("insert into DBList(DBName,GameType,AllowNoFrom,AllowNoTo,DateOfCreation,IsInternalDatabase) values('" + DatabaseName + "','Weekly',1,90,getdate(),0) select Scope_Identity()");
+                con = new SQLiteConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand("insert into DBList(DBName,GameType,AllowNoFrom,AllowNoTo,DateOfCreation,IsInternalDatabase) values('" + DatabaseName + "','Weekly',1,90,getdate(),0) select Scope_Identity()");
                 cmd.Connection = con;
                 con.Open();
                 int DBId = Convert.ToInt32(cmd.ExecuteScalar());
                 con.Close();
-                SqlDataAdapter adp = new SqlDataAdapter("select * from  Win_Machin_Table where DBId =" + DBId.ToString(), con);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from  Win_Machin_Table where DBId =" + DBId.ToString(), con);
                 DataSet dsWin_Machin_Table = new DataSet();
                 adp.Fill(dsWin_Machin_Table);
                 int i = 1;
@@ -97,7 +98,7 @@ namespace WpfPort
                     i++;
                 }
                 dsWin_Machin_Table.GetChanges();
-                SqlCommandBuilder cb = new SqlCommandBuilder(adp);
+                SQLiteCommandBuilder cb = new SQLiteCommandBuilder(adp);
                 adp.Update(dsWin_Machin_Table);
 
             }
@@ -118,8 +119,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlDataAdapter adp = new SqlDataAdapter("select * from DBList where IsInternalDatabase = 0", con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from DBList where IsInternalDatabase = '0'", con);
 
                 adp.Fill(dsDBList);
                 return dsDBList.Tables[0];
@@ -143,8 +144,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlDataAdapter adp = new SqlDataAdapter("select * from DBList where IsInternalDatabase = 1", con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from 'dbo.DBList' where IsInternalDatabase = '1'", con);
 
                 adp.Fill(dsDBList);
                 return dsDBList.Tables[0];
@@ -154,24 +155,23 @@ namespace WpfPort
             {
                 throw ex;
             }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
-            return dsDBList.Tables[0];
+            //finally
+            //{
+            //    if (con.State == ConnectionState.Open)
+            //        con.Close();
+            //}
+            
         }
 
         public static void GetWin_Machin_DataByDBId(int DBId, ref DataSet dsWin_Machin_Data)
         {
 
-
             //DataSet dsWin_Machin_Data = new DataSet();
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                adp1 = new SqlDataAdapter("select * from Win_Machin_Table where DBId=" + DBId, con);
+                con = new SQLiteConnection(sqlConn);
+                adp1 = new SQLiteDataAdapter("select * from 'dbo.Win_Machin_Table' where DBId='" + DBId +"'", con);
                 adp1.Fill(dsWin_Machin_Data);
                 //return dsWin_Machin_Data;
             }
@@ -193,8 +193,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                adp1 = new SqlDataAdapter("select * from Win_Machin_Table where DBId IN (" + DBIdList + ")", con);
+                con = new SQLiteConnection(sqlConn);
+                adp1 = new SQLiteDataAdapter("select * from Win_Machin_Table where DBId IN (" + DBIdList + ")", con);
                 adp1.Fill(dsWin_Machin_Data);
                 return dsWin_Machin_Data.Tables[0];
             }
@@ -214,8 +214,8 @@ namespace WpfPort
         {
             try
             {
-                //con = new SqlConnection(sqlConn);
-                //SqlDataAdapter adp = new SqlDataAdapter("select * from  Win_Machin_Table where DBId =" + DBId.ToString(), con);
+                //con = new SQLiteConnection(sqlConn);
+                //SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from  Win_Machin_Table where DBId =" + DBId.ToString(), con);
                 //DataSet dsWin_Machin_Table = new DataSet();
                 //adp.Fill(dsWin_Machin_Table);
                 //dsWin_Machin_Table.Tables[0].Clear();
@@ -223,7 +223,7 @@ namespace WpfPort
                 //dsWin_Machin_Table.GetChanges();
                 //DataRow[] rows = dsWin_Machin_Data.Tables[0].Select("DBId not in( " + DBId.ToString() + ")");
 
-                SqlCommandBuilder cb = new SqlCommandBuilder(adp1);
+                SQLiteCommandBuilder cb = new SQLiteCommandBuilder(adp1);
                 ////if (dsWin_Machin_Data.Tables[0].Columns.Contains("SNo"))
                 ////    dsWin_Machin_Data.Tables[0].Columns.Remove("SNo");
                 adp1.Update(dsWin_Machin_Data);
@@ -244,8 +244,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand("delete from Win_Machin_Table where DBId IN (" + DBIdList + ")");
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand("delete from Win_Machin_Table where DBId IN (" + DBIdList + ")");
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
@@ -268,8 +268,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand("update DBList set IsInternalDatabase = 0");
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand("update DBList set IsInternalDatabase = 0");
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
@@ -292,8 +292,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand();
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand();
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandText = "update DBList set IsInternalDatabase = 0 where DBId = " + DBId.ToString();
@@ -315,8 +315,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                adp2 = new SqlDataAdapter("select * from SearchPlan", con);
+                con = new SQLiteConnection(sqlConn);
+                adp2 = new SQLiteDataAdapter("select * from 'dbo.SearchPlan'", con);
                 adp2.Fill(dsSearchPlane);
             }
             catch (Exception ex)
@@ -335,7 +335,7 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommandBuilder cb = new SqlCommandBuilder(adp2);
+                SQLiteCommandBuilder cb = new SQLiteCommandBuilder(adp2);
                 adp2.Update(dsSearchPlane);
             }
             catch (Exception ex)
@@ -355,8 +355,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlDataAdapter adp = new SqlDataAdapter("select * from SearchNumbers", con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from SearchNumbers", con);
                 adp.Fill(dsSearchNumber);
                 return dsSearchNumber.Tables[0];
             }
@@ -378,8 +378,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlCommand cmd = new SqlCommand("delete from SearchNumbers", con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand("delete from SearchNumbers", con);
                 con.Open();
                 cmd.ExecuteNonQuery();
                 foreach (DataRow row in dtSearchNum.Rows)
@@ -405,9 +405,9 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
-                SqlCommand oCmd = new SqlCommand("select DBName from DBList where DBId =" + DBId.ToString(), con);
+                SQLiteCommand oCmd = new SQLiteCommand("select DBName from DBList where DBId =" + DBId.ToString(), con);
                 string DBName = Convert.ToString(oCmd.ExecuteScalar());
                 return DBName;
             }
@@ -447,8 +447,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlDataAdapter adp = new SqlDataAdapter("select * from CodeTable", con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from CodeTable", con);
 
                 adp.Fill(dsCodeList);
                 return dsCodeList.Tables[0];
@@ -472,8 +472,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                adp1 = new SqlDataAdapter("select * from Win_Machin_Table ", con);
+                con = new SQLiteConnection(sqlConn);
+                adp1 = new SQLiteDataAdapter("select * from Win_Machin_Table ", con);
                 adp1.Fill(dsWin_Machin_Data);
                 return dsWin_Machin_Data.Tables[0];
             }
@@ -490,8 +490,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                con = new SqlConnection(sqlConn);
-                SqlDataAdapter adp = new SqlDataAdapter(" select * from Win_Machin_Table as T where year(Date) = ( select Max(year(Date)) from Win_Machin_Table where dbid = " + DBId.ToString() + " )and dbid = " + DBId.ToString(), con);
+                con = new SQLiteConnection(sqlConn);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter(" select * from Win_Machin_Table as T where year(Date) = ( select Max(year(Date)) from Win_Machin_Table where dbid = " + DBId.ToString() + " )and dbid = " + DBId.ToString(), con);
                 adp.Fill(dsDBList);
                 return dsDBList.Tables[0];
 
@@ -514,8 +514,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand();
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand();
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 foreach (DataRow rForcast in dtForcast.Rows)
@@ -540,15 +540,15 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand();
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand();
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 if (All)
                     cmd.CommandText = "Select * from ForcastTable";
                 else
                     cmd.CommandText = "select * from ForcastTable where convert(varchar, fdate, 101) = convert(varchar, getdate(), 101)";
-                SqlDataAdapter oSqlDataAdapter = new SqlDataAdapter(cmd);
+                SQLiteDataAdapter oSqlDataAdapter = new SQLiteDataAdapter(cmd);
                 DataSet dsForcast = new DataSet();
                 oSqlDataAdapter.Fill(dsForcast);
                 return dsForcast.Tables[0];
@@ -569,8 +569,8 @@ namespace WpfPort
             try
             {
                 setConnectionString();
-                SqlCommand cmd = new SqlCommand("delete from ForcastTable where Id IN (" + Ids + ")");
-                con = new SqlConnection(sqlConn);
+                SQLiteCommand cmd = new SQLiteCommand("delete from ForcastTable where Id IN (" + Ids + ")");
+                con = new SQLiteConnection(sqlConn);
                 con.Open();
                 cmd.Connection = con;
                 cmd.ExecuteNonQuery();
