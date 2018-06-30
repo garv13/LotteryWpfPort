@@ -26,37 +26,6 @@ namespace WpfPort
         public ExternalDatabaseList()
         {
             InitializeComponent();
-
-            List<IconTemplate> iconList = new List<IconTemplate>();
-            iconList.Add(new IconTemplate()
-            {
-                ImageIconSource = "Sample-icon.png",
-                Name = "External Games",
-                ImageTag = "tag"
-            });
-            iconList.Add(new IconTemplate()
-            {
-                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
-                Name = "Full Cell",
-                ImageTag = "tag"
-            });
-            iconList.Add(new IconTemplate()
-            {
-                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
-                Name = "Exact Cell",
-                ImageTag = "tag"
-            });
-            System.Windows.Controls.Image ds1 = new System.Windows.Controls.Image();
-
-            iconList.Add(new IconTemplate()
-            {
-                ImageIconSource = @"C:\Users\Varun Bhatia\Source\Repos\LotteryWpfPort\WpfPort\Sample-icon.png",
-                Name = "Manual Code",
-                ImageTag = "tag"
-            });
-            //Bind it with the ListBox  
-            this.IconPanelTemplate1.ItemsSource = iconList;
-            this.IconPanelTemplate2.ItemsSource = iconList;
             Loaded += ExternalDatabaseList_Loaded;
         }
 
@@ -185,17 +154,6 @@ namespace WpfPort
             //    //reader.Close();
             //}
         }
-
-        private void IconButton_Click(object sender, RoutedEventArgs e)
-        {
-            GetlastRowsMod();// called on radio button changed
-            PreSettingSearch();
-            //PrepareSearchGrid();// called on search button click
-            
-            System.Windows.Controls.Button bs = sender as System.Windows.Controls.Button;
-            string str = bs.Tag.ToString();
-        }
-
 
         private void PrepareSearchGrid()
         {
@@ -1205,6 +1163,13 @@ namespace WpfPort
             {
                 System.Windows.MessageBox.Show(ex.Message);
             }
+        }
+
+        private void FullCellButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetlastRowsMod();// called on radio button changed
+            PreSettingSearch();
+            //PrepareSearchGrid();// called on search button click
         }
     }
 }

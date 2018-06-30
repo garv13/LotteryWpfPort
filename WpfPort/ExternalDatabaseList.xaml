@@ -69,7 +69,7 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="HomeButton" Grid.Column="0" Content="{StaticResource MyImage}" HorizontalContentAlignment="Stretch" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                 <Button x:Name="MenuButton" Grid.Column="2" Content="{StaticResource MyImage}" HorizontalContentAlignment="Stretch" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-                <TextBlock Grid.Column="3" Text="Menu" Foreground="White" Background="{StaticResource BackgroundColor}" TextAlignment="Justify" FontSize="10" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="Menu" Foreground="White" Background="{StaticResource BackgroundColor}" TextAlignment="Justify" VerticalAlignment="Center"/>
                 <Button x:Name="MinimizeButton" Grid.Column="4" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                 <Button x:Name="MaximizeButton" Grid.Column="5" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                 <Button x:Name="CloseButton" Grid.Column="6" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
@@ -77,8 +77,8 @@
 
             <Grid x:Name="IconGrid" Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.7*"/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="0.4*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*"/>
@@ -86,59 +86,30 @@
                     <ColumnDefinition Width="0.4*"/>
                 </Grid.ColumnDefinitions>
                 
-                <ListBox Name="IconPanelTemplate1" Background="{StaticResource BackgroundColor}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <StackPanel>
-                                    <Button Tag = "{Binding ImageTag}" Content="{StaticResource MyImage}" Click="IconButton_Click" MaxHeight="20" MaxWidth="20">
-                                        <!--<Button.Background>
-                                            <ImageBrush ImageSource ="{Binding IconImage}"></ImageBrush>
-                                        </Button.Background>-->
-                                    </Button>
-                                    <TextBlock Text="{Binding Name}"></TextBlock>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-                <!--<StackPanel x:Name="IconPanel1" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
+                <StackPanel x:Name="IconPanel1" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
                     <Button x:Name="FullCellButton" Click="FullCellButton_Click" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="ExactCellButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="ManualCodeButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="CombinatationButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-                </StackPanel>-->
+                </StackPanel>
 
 
-                <TextBlock x:Name="DBNameTextBlock" Grid.Column="1" Grid.Row="1" Text="DataBase Name" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                <TextBlock x:Name="DBNameTextBlock" Grid.Column="1" Grid.Row="1" Text="DataBase Name" Foreground="White" Background="{StaticResource BackgroundColor}" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
-                <ListBox Name="IconPanelTemplate2" Background="{StaticResource BackgroundColor}" Grid.Column="2">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Vertical">
-                                    <Button Tag= "{Binding ImageTag}" Click="IconButton_Click" Content="{StaticResource MyImage}" Background="{StaticResource BackgroundColor}" MaxHeight="20" MaxWidth="20"/>
-                                    <TextBlock Text="{Binding Name}" FontSize="16"></TextBlock>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                
-                <!--<StackPanel x:Name="IconPanel2" Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+              
+                <StackPanel x:Name="IconPanel2" Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
                     <Button x:Name="UpwardsButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="SwitchButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="ClearSearchButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="SearchButton" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
                     <Button x:Name="ExternalGamesButton" Click="ExternalGamesButton_Click" Content="{StaticResource MyImage}" HorizontalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="White"/>
-                </StackPanel>-->
+                </StackPanel>
 
 
             </Grid>
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="1" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" RowBackground="{StaticResource BackgroundColor}" ColumnWidth="*" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <DataGrid.Resources>
                     <Style TargetType="ScrollBar">
                         <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
