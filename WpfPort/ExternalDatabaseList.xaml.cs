@@ -57,6 +57,12 @@ namespace WpfPort
             //Bind it with the ListBox  
             this.IconPanelTemplate1.ItemsSource = iconList;
             this.IconPanelTemplate2.ItemsSource = iconList;
+            Loaded += ExternalDatabaseList_Loaded;
+        }
+
+        private void ExternalDatabaseList_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchForm_Load(sender, e);
         }
 
         static DataTable dt;
@@ -72,6 +78,7 @@ namespace WpfPort
         private static DataTable dtLastRows;
         private static DataTable dtCodeTable;
 
+      
         private void ExternalDatabaseList_Load(object sender, EventArgs e)
         {
             fillExternalCheckListBox();
@@ -181,9 +188,10 @@ namespace WpfPort
 
         private void IconButton_Click(object sender, RoutedEventArgs e)
         {
-            PrepareSearchGrid();
-            GetlastRowsMod();
-            //PreSettingSearch();
+            GetlastRowsMod();// called on radio button changed
+            PreSettingSearch();
+            //PrepareSearchGrid();// called on search button click
+            
             System.Windows.Controls.Button bs = sender as System.Windows.Controls.Button;
             string str = bs.Tag.ToString();
         }
@@ -307,7 +315,7 @@ namespace WpfPort
                             k++;
                             dsSearch.Tables[0].Rows.Add(rowSerch);
                         }
-                        dataGrid.ItemsSource = dsSearch.Tables[0].DefaultView;
+                        //dataGrid.ItemsSource = dsSearch.Tables[0].DefaultView;
                         
                     }
                 }//
@@ -571,12 +579,12 @@ namespace WpfPort
                         {
                             if (dtSearchTemp.Rows[14][dc] != null && dtSearchTemp.Rows[14][dc] != DBNull.Value && dtTargetdt.Rows[cnt][dc.Caption] != null && dtTargetdt.Rows[cnt][dc.Caption] != DBNull.Value)
                             {
-                                if (Convert.ToInt32(dtSearchTemp.Rows[14][dc]) == (int)dtTargetdt.Rows[cnt][dc.Caption])
+                                if (Convert.ToInt32(dtSearchTemp.Rows[14][dc]) == Convert.ToInt32(dtTargetdt.Rows[cnt][dc.Caption]))
                                 {
                                     numFound += 1;
                                     totalNumFound += 1;
                                     DataRow rowNumFound = dtNumFound.NewRow();
-                                    rowNumFound["Id"] = (int)dtTargetdt.Rows[cnt]["Id"];
+                                    rowNumFound["Id"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
                                     rowNumFound["col"] = dc.Caption;
                                     rowNumFound["RecNo"] = dtRank.Rows.Count + 1;
                                     dtNumFound.Rows.Add(rowNumFound);
@@ -585,11 +593,11 @@ namespace WpfPort
                                 {
                                     if (!(dtSearchTemp.Rows[i][dc] == null || dtSearchTemp.Rows[i][dc] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == null))
 
-                                        if (Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == (int)dtTargetdt.Rows[cnt - 14 + i][dc.Caption])
+                                        if (Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i][dc.Caption]))
                                         {
                                             totalNumFound += 1;
                                             DataRow rowNumFound = dtNumFound.NewRow();
-                                            rowNumFound["Id"] = (int)dtTargetdt.Rows[cnt - 14 + i]["Id"];
+                                            rowNumFound["Id"] = Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i]["Id"]);
                                             rowNumFound["col"] = dc.Caption;
                                             rowNumFound["RecNo"] = dtRank.Rows.Count + 1;
                                             dtNumFound.Rows.Add(rowNumFound);
@@ -610,19 +618,19 @@ namespace WpfPort
                     {
                         totalResFound += 1;
                         DataRow rowRank = dtRank.NewRow();
-                        rowRank["startId"] = (int)dtTargetdt.Rows[cnt - 14]["Id"];
+                        rowRank["startId"] = Convert.ToInt32(dtTargetdt.Rows[cnt - 14]["Id"]);
                         if (cnt >= dtTargetdt.Rows.Count)
                         {
                             cnt = dtTargetdt.Rows.Count - 1;
                         }
-                        rowRank["endId"] = (int)dtTargetdt.Rows[cnt]["Id"];
+                        rowRank["endId"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
 
                         if (dtTargetdt.Rows.Count > cnt + 2)
-                            rowRank["lastId"] = (int)dtTargetdt.Rows[cnt + 2]["Id"];
+                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt + 2]["Id"]);
                         else if (dtTargetdt.Rows.Count > cnt + 1)
-                            rowRank["lastId"] = (int)dtTargetdt.Rows[cnt + 1]["Id"];
+                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt + 1]["Id"]);
                         else
-                            rowRank["lastId"] = (int)dtTargetdt.Rows[cnt]["Id"];
+                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
                         rowRank["numFound"] = numFound;
                         rowRank["totalNumFound"] = totalNumFound;
                         rowRank["RecNo"] = dtRank.Rows.Count + 1;
@@ -770,7 +778,7 @@ namespace WpfPort
                 {
 
                     DataRow[] rows = dtBaseTable.Select("Id > " + ((int)rowView["startId"] - 1).ToString() + " and Id < " + ((int)rowView["lastId"] + 1).ToString());
-                    int LastId = (int)rowView["endId"];
+                    int LastId = Convert.ToInt32(rowView["endId"]);
                     //if (rdBottomToTop.Checked)
                     //{
                     //    rows = dtBaseTable.Select("Id > " + ((int)rowView["lastId"] - 1).ToString() + " and Id < " + ((int)rowView["endId"] + 1).ToString());
@@ -842,7 +850,7 @@ namespace WpfPort
                         row["RecordId"] = rows[i]["Id"].ToString();
                         if (false)//rdTopToBottom.Checked
                         {
-                            if ((int)rows[i]["Id"] != LastId && (int)rows[i]["Id"] != LastId - 1)
+                            if (Convert.ToInt32(rows[i]["Id"]) != LastId && Convert.ToInt32(rows[i]["Id"]) != LastId - 1)
                             {
                                 if (i == rows.Length - 1 || i == rows.Length - 2)
                                     row["RecordId"] = 0;
@@ -864,7 +872,7 @@ namespace WpfPort
                         }
                         else
                         {
-                            if ((int)rows[i]["Id"] != (int)rowView["endId"] && (int)rows[i]["Id"] != (int)rowView["endId"] + 1)
+                            if (Convert.ToInt32(rows[i]["Id"]) != Convert.ToInt32(rowView["endId"]) && Convert.ToInt32(rows[i]["Id"]) != Convert.ToInt32(rowView["endId"]) + 1)
                             {
                                 if (i == 0 || i == 1)
                                     row["RecordId"] = 0;
@@ -1077,7 +1085,7 @@ namespace WpfPort
                 PrepareSummary();
                 //Date1.DefaultCellStyle.Format = "dd/MM/yyyy";
                 dtSerchRes.DefaultView.Sort = "NosFound desc,tNosFound desc";
-                dataGrid.DataContext = dtSerchRes.DefaultView;
+                dataGrid.ItemsSource = dtSerchRes.DefaultView;
                 //ResultGrid.Columns["DBId"].Visible = false;
                 //ResultGrid.Columns["NosFound"].Visible = false;
                 //ResultGrid.Columns["RecNo"].Visible = false;

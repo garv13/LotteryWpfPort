@@ -14,7 +14,7 @@ namespace WpfPort
         private static SQLiteConnection con;
         private static SQLiteDataAdapter adp1;
         private static SQLiteDataAdapter adp2;
-        private static string sqlConn = @"Data Source=C:\Users\Varun Bhatia\Downloads\result\data.sqlite";
+        private static readonly string sqlConn = @"Data Source=C:\Users\garvj\Source\Repos\WpfPort\WpfPort\data.sqlite";
 
 
         public static void ImportDatabase(DataSet dsExcell, string DatabaseName)
@@ -120,7 +120,7 @@ namespace WpfPort
             {
                 setConnectionString();
                 con = new SQLiteConnection(sqlConn);
-                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from DBList where IsInternalDatabase = '0'", con);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from 'dbo.DBList' where IsInternalDatabase = '0'", con);
 
                 adp.Fill(dsDBList);
                 return dsDBList.Tables[0];
@@ -356,7 +356,7 @@ namespace WpfPort
             {
                 setConnectionString();
                 con = new SQLiteConnection(sqlConn);
-                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from SearchNumbers", con);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from 'dbo.SearchNumbers'", con);
                 adp.Fill(dsSearchNumber);
                 return dsSearchNumber.Tables[0];
             }
@@ -407,7 +407,7 @@ namespace WpfPort
                 setConnectionString();
                 con = new SQLiteConnection(sqlConn);
                 con.Open();
-                SQLiteCommand oCmd = new SQLiteCommand("select DBName from DBList where DBId =" + DBId.ToString(), con);
+                SQLiteCommand oCmd = new SQLiteCommand("select DBName from 'dbo.DBList' where DBId =" + DBId.ToString(), con);
                 string DBName = Convert.ToString(oCmd.ExecuteScalar());
                 return DBName;
             }
@@ -448,7 +448,7 @@ namespace WpfPort
             {
                 setConnectionString();
                 con = new SQLiteConnection(sqlConn);
-                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from CodeTable", con);
+                SQLiteDataAdapter adp = new SQLiteDataAdapter("select * from 'dbo.CodeTable'", con);
 
                 adp.Fill(dsCodeList);
                 return dsCodeList.Tables[0];

@@ -138,16 +138,13 @@
             </Grid>
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" RowBackground="{StaticResource BackgroundColor}" Foreground="Green" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource BackgroundColor}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <DataGrid.Resources>
                     <Style TargetType="ScrollBar">
                         <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
                         <Setter Property="BorderBrush" Value="{StaticResource BackgroundColor}" />
                         <Setter Property="Foreground" Value="{StaticResource BackgroundColor}" />
-                        <Setter Property="Visibility" Value="Collapsed" />
-
-
-                    </Style>
+                </Style>
                     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
                         <Setter Property="Foreground" Value="Green" />
