@@ -37,3 +37,5 @@ Num Found in Forcast Line
 	Function name ResultGrid_CellPainting()
 
 2 - External database implementation
+
+3 - Change the data format of result data in grid (Less Important)
