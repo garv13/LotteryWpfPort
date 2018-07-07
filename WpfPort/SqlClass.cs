@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace WpfPort
         private static SQLiteConnection con;
         private static SQLiteDataAdapter adp1;
         private static SQLiteDataAdapter adp2;
-        private static readonly string sqlConn = @"Data Source=C:\Users\garvj\Source\Repos\WpfPort\WpfPort\data.sqlite";
+        private static string sqlConn = @"Data Source=data.sqlite";
 
 
         public static void ImportDatabase(DataSet dsExcell, string DatabaseName)
@@ -422,15 +423,17 @@ namespace WpfPort
             }
         }
 
-        public static void setConnectionString()
+        public static void setConnectionString(string str = null)
         {
             try
             {
+                var dir = AppDomain.CurrentDomain.BaseDirectory;
+                sqlConn = @"Data Source=" + dir + "data.sqlite";
                 //string strFileName = @"\Connection_String.txt";
                 //string strFileName1 = "Connection_String.txt";
                 //if (!File.Exists(strFileName))
                 //    strFileName = strFileName1;
-                //FileStream myFileStream = new FileStream( strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                //FileStream myFileStream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
                 //StreamReader rd = new StreamReader(myFileStream);
                 //sqlConn = rd.ReadLine();
                 //myFileStream.Close();

@@ -31,6 +31,22 @@ namespace WpfPort
 
         private void ExternalDatabaseList_Loaded(object sender, RoutedEventArgs e)
         {
+            HomeButton.Content = getButtonImage("images/UnClicked_Icons/home.png");
+            MenuButton.Content = getButtonImage("images/UnClicked_Icons/menu.png");
+            MinimizeButton.Content = getButtonImage("images/UnClicked_Icons/minimise.png");
+            MaximizeButton.Content = getButtonImage("images/UnClicked_Icons/maximise.png");
+            CloseButton.Content = getButtonImage("images/UnClicked_Icons/close.png");
+            FullCellButton.Content = getButtonImage("images/UnClicked_Icons/FULLCELL.png");
+            ExactCellButton.Content = getButtonImage("images/UnClicked_Icons/EXACT.png");
+            ManualCodeButton.Content = getButtonImage("images/UnClicked_Icons/MANUAL_CODE.png");
+            CombinatationButton.Content = getButtonImage("images/UnClicked_Icons/COMBINE.png");
+            UpwardsButton.Content = getButtonImage("images/UnClicked_Icons/EXPORT.png");
+            SwitchButton.Content = getButtonImage("images/UnClicked_Icons/SWITCH.png");
+            ClearSearchButton.Content = getButtonImage("images/UnClicked_Icons/CLEAR_SEARCH.png");
+            SearchButton.Content = getButtonImage("images/UnClicked_Icons/SEARCH.png");
+            ExternalGamesButton.Content = getButtonImage("images/UnClicked_Icons/EXTERNAL_DB.png");
+            VoucherLoadButton.Content = getButtonImage("images/UnClicked_Icons/VOUCHERS_LOAD.png");
+            UpdateDbButton.Content = getButtonImage("images/UnClicked_Icons/DATABASE_UPDATE.png");
             SearchForm_Load(sender, e);
         }
 
@@ -157,7 +173,6 @@ namespace WpfPort
 
         private void PrepareSearchGrid()
         {
-
             dsSearch = new DataSet();
             SqlClass.GetSearchPlaneData(ref dsSearch);
             //Date.DefaultCellStyle.Format = "dd/MM/yyyy";
@@ -493,6 +508,7 @@ namespace WpfPort
 
         private void FullCellSearchMOD(DataTable dtTargetdt)
         {
+            FullCellButton.Content = getButtonImage("images/Clicked_Icons/FULLCELL.png");
             try
             {
 
@@ -598,6 +614,7 @@ namespace WpfPort
                     //else
                     cnt++;
                 }
+                TotalHitsTextBlock.Text = totalNumFound.ToString() + " HITS";
                 ImportToResultFullCellSearch(dtRank);
 
             }
@@ -1044,6 +1061,14 @@ namespace WpfPort
                 //Date1.DefaultCellStyle.Format = "dd/MM/yyyy";
                 dtSerchRes.DefaultView.Sort = "NosFound desc,tNosFound desc";
                 dataGrid.ItemsSource = dtSerchRes.DefaultView;
+                dataGrid.Columns.RemoveAt(0);
+                dataGrid.Columns.RemoveAt(0);
+                dataGrid.Columns.RemoveAt(14);
+                dataGrid.Columns.RemoveAt(14);
+                dataGrid.Columns.RemoveAt(14);
+                dataGrid.Columns.RemoveAt(14);
+                dataGrid.Columns.RemoveAt(14);
+                dataGrid.Columns.RemoveAt(14);
                 //ResultGrid.Columns["DBId"].Visible = false;
                 //ResultGrid.Columns["NosFound"].Visible = false;
                 //ResultGrid.Columns["RecNo"].Visible = false;
@@ -1156,7 +1181,7 @@ namespace WpfPort
 
                 dtSummary.DefaultView.RowFilter = "cnt > 1";
                 dtSummary.DefaultView.Sort = "cnt desc";
-                dataGrid.DataContext = dtSummary.DefaultView;
+                //dataGrid.DataContext = dtSummary.DefaultView;
 
             }
             catch (Exception ex)
@@ -1170,6 +1195,24 @@ namespace WpfPort
             GetlastRowsMod();// called on radio button changed
             PreSettingSearch();
             //PrepareSearchGrid();// called on search button click
+        }
+
+        private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "Date")
+            {
+                Style _style = new Style(typeof(System.Windows.Controls.TextBox));
+                _style.Setters.Add(new Setter(System.Windows.Controls.TextBox.MaxLengthProperty, 5));
+                (e.Column as DataGridTextColumn).EditingElementStyle = _style;
+                //(e.Column as DataGridTextColumn).= 5;
+            }
+        }
+
+        private Image getButtonImage(string path)
+        {
+            Image ig = new Image();
+            ig.Source = new BitmapImage(new Uri(path, UriKind.Relative));
+            return ig;
         }
     }
 }

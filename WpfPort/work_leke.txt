@@ -1,0 +1,39 @@
+
+// on click of make search 
+SearchForm_Load()
+PrepareSearchGrid()
+CreateSummaryTable()
+
+
+// on click of any radio button 
+GetlastRowsMod()
+
+// on click of search button 
+PreSettingSearch()
+FullCellSearchMOD()
+
+	rdInternalDB.Checked = true
+ImportToResultFullCellSearch()
+
+
+
+// to color red 
+ResultGrid_CellPainting()
+
+// count mismatch
+dataGrid.DataContext = dtSummary.DefaultView; // 49     
+grdSummary.DataSource = dtSummary.DefaultView; // 42
+
+// func names 
+
+Totle Num Found 
+Database 
+Num Found in Forcast Line 
+
+
+// todo
+
+1 - Red Color in data grid Column // #F20000  	
+	Function name ResultGrid_CellPainting()
+
+2 - External database implementation
