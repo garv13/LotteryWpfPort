@@ -15,13 +15,14 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Collections;
+using System.Globalization;
 
 namespace WpfPort
 {
     /// <summary>
     /// Interaction logic for ExternalDatabaseList.xaml
     /// </summary>
-    public partial class ExternalDatabaseList : Window
+    public partial class ExternalDatabaseList : Window, IValueConverter
     {
         public ExternalDatabaseList()
         {
@@ -1203,6 +1204,7 @@ namespace WpfPort
             {
                 Style _style = new Style(typeof(System.Windows.Controls.TextBox));
                 _style.Setters.Add(new Setter(System.Windows.Controls.TextBox.MaxLengthProperty, 5));
+                (e.Column as DataGridTextColumn).Binding = new System.Windows.Data.Binding(e.PropertyName) { Converter = "ExternalDatabaseList" };
                 (e.Column as DataGridTextColumn).EditingElementStyle = _style;
                 //(e.Column as DataGridTextColumn).= 5;
             }
@@ -1213,6 +1215,79 @@ namespace WpfPort
             Image ig = new Image();
             ig.Source = new BitmapImage(new Uri(path, UriKind.Relative));
             return ig;
+        }
+
+        private void ResultGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0)
+                    if (dtNumFound.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dtNumFound.Rows)
+                        {
+                            if (ResultGrid.Columns[e.ColumnIndex].DataPropertyName == row["col"].ToString() && ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value != null && ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value != DBNull.Value)
+                                if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == Convert.ToInt32(row["Id"]))
+                                {
+                                        if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecNo"].Value) == Convert.ToInt32(row["RecNo"]))
+                                        {
+                                            if (rdFullCellSearch.Checked || rdExectSearch12.Checked)
+                                                e.CellStyle.BackColor = Color.Red;
+                                            else if (rdCodeSearch.Checked)
+                                            {
+
+                                                int i = Convert.ToInt32(row["Sym"]);
+                                                if (i == 0)
+                                                    e.CellStyle.BackColor = Color.Red;
+                                                else if (i == 1)
+                                                    e.CellStyle.BackColor = Color.Blue;
+                                                else if (i == 2)
+                                                    e.CellStyle.BackColor = Color.Green;
+                                                else if (i == 3)
+                                                    e.CellStyle.BackColor = Color.Yellow;
+                                                else if (i == 4)
+                                                    e.CellStyle.BackColor = Color.Brown;
+                                                else if (i == 5)
+                                                    e.CellStyle.BackColor = Color.Pink;
+                                                else if (i == 6)
+                                                    e.CellStyle.BackColor = Color.Violet;
+                                                else if (i == 7)
+                                                    e.CellStyle.BackColor = Color.SteelBlue;
+                                                else if (i == 8)
+                                                    e.CellStyle.BackColor = Color.SpringGreen;
+                                                else if (i == 9)
+                                                    e.CellStyle.BackColor = Color.YellowGreen;
+                                                else
+                                                    e.CellStyle.BackColor = Color.Red;
+
+                                            }
+                                            else
+                                            {
+                                            }
+
+                                        }
+
+                                }
+                        }
+                        if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == 0)
+                        {
+                            e.CellStyle.BackColor = Color.Aqua;
+                        }
+                    }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
