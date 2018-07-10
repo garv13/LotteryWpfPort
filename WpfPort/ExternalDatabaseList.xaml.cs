@@ -22,7 +22,7 @@ namespace WpfPort
     /// <summary>
     /// Interaction logic for ExternalDatabaseList.xaml
     /// </summary>
-    public partial class ExternalDatabaseList : Window, IValueConverter
+    public partial class ExternalDatabaseList : Window
     {
         public ExternalDatabaseList()
         {
@@ -217,6 +217,7 @@ namespace WpfPort
                 dtLastRows.Columns.Add("W3");
                 dtLastRows.Columns.Add("W4");
                 dtLastRows.Columns.Add("W5");
+                
             }
             catch (Exception ex)
             {
@@ -246,12 +247,13 @@ namespace WpfPort
 
                 if (dsSearch.Tables[0].Rows[0]["W1"] == null || dsSearch.Tables[0].Rows[0]["W2"] == DBNull.Value || true)
                 {
-                    
+
                     DataTable dtInter = SqlClass.GetInternalDatabase();
                     int DBId;
                     if (dtInter.Rows.Count > 0)
                     {
-                        DBId = Convert.ToInt32(dtInter.Rows[0]["DBId"]);
+                        
+                        DBId = System.Convert.ToInt32(dtInter.Rows[0]["DBId"]);
                         DataSet ds = new DataSet();
 
                         SqlClass.GetWin_Machin_DataByDBId(DBId, ref ds);
@@ -290,7 +292,7 @@ namespace WpfPort
                             dsSearch.Tables[0].Rows.Add(rowSerch);
                         }
                         //dataGrid.ItemsSource = dsSearch.Tables[0].DefaultView;
-                        
+
                     }
                 }//
             }
@@ -321,7 +323,7 @@ namespace WpfPort
                     //    progressBar1.Value = cnt;
                     DataRow[] rowMaxRecNo = dtNumFound.Select("RecNo = MAX(RecNo)");
                     if (rowMaxRecNo.Length > 0)
-                        RecNo = Convert.ToInt32(rowMaxRecNo[0]["RecNo"]) + 1;
+                        RecNo = System.Convert.ToInt32(rowMaxRecNo[0]["RecNo"]) + 1;
 
                     numFound = 0;
                     for (int i = 0; i < dtSearchNum.Rows.Count; i++)
@@ -329,7 +331,7 @@ namespace WpfPort
                         int rowNo = (int)dtSearchNum.Rows[i]["Row"] - 1;
                         if (cnt + rowNo < dtTargetdt.Rows.Count)
                             if (!(dtTargetdt.Rows[cnt + rowNo][dtSearchNum.Rows[i]["W"].ToString()] == null || dtTargetdt.Rows[cnt + rowNo][dtSearchNum.Rows[i]["W"].ToString()] == DBNull.Value))
-                                if (Convert.ToInt32(dtSearchNum.Rows[i]["dValue"]) == (int)dtTargetdt.Rows[cnt + rowNo][dtSearchNum.Rows[i]["W"].ToString()])
+                                if (System.Convert.ToInt32(dtSearchNum.Rows[i]["dValue"]) == (int)dtTargetdt.Rows[cnt + rowNo][dtSearchNum.Rows[i]["W"].ToString()])
                                 {
                                     numFound = numFound + 1;
                                     DataRow rowNumFound = dtNumFound.NewRow();
@@ -409,7 +411,7 @@ namespace WpfPort
                 DataRow row3 = dtSerchRes.NewRow();
                 id = id + 1;
                 row3["Id"] = id;
-                int DBId = Convert.ToInt32(rows[0]["DBId"]);
+                int DBId = System.Convert.ToInt32(rows[0]["DBId"]);
                 row3["MatchType"] = "Database :";
                 row3["NumHits"] = SqlClass.GetDBNameById(DBId);
                 row3["NosFound"] = Hits;
@@ -554,12 +556,12 @@ namespace WpfPort
                         {
                             if (dtSearchTemp.Rows[14][dc] != null && dtSearchTemp.Rows[14][dc] != DBNull.Value && dtTargetdt.Rows[cnt][dc.Caption] != null && dtTargetdt.Rows[cnt][dc.Caption] != DBNull.Value)
                             {
-                                if (Convert.ToInt32(dtSearchTemp.Rows[14][dc]) == Convert.ToInt32(dtTargetdt.Rows[cnt][dc.Caption]))
+                                if (System.Convert.ToInt32(dtSearchTemp.Rows[14][dc]) == System.Convert.ToInt32(dtTargetdt.Rows[cnt][dc.Caption]))
                                 {
                                     numFound += 1;
                                     totalNumFound += 1;
                                     DataRow rowNumFound = dtNumFound.NewRow();
-                                    rowNumFound["Id"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
+                                    rowNumFound["Id"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
                                     rowNumFound["col"] = dc.Caption;
                                     rowNumFound["RecNo"] = dtRank.Rows.Count + 1;
                                     dtNumFound.Rows.Add(rowNumFound);
@@ -568,11 +570,11 @@ namespace WpfPort
                                 {
                                     if (!(dtSearchTemp.Rows[i][dc] == null || dtSearchTemp.Rows[i][dc] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == null))
 
-                                        if (Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i][dc.Caption]))
+                                        if (System.Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == System.Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i][dc.Caption]))
                                         {
                                             totalNumFound += 1;
                                             DataRow rowNumFound = dtNumFound.NewRow();
-                                            rowNumFound["Id"] = Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i]["Id"]);
+                                            rowNumFound["Id"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt - 14 + i]["Id"]);
                                             rowNumFound["col"] = dc.Caption;
                                             rowNumFound["RecNo"] = dtRank.Rows.Count + 1;
                                             dtNumFound.Rows.Add(rowNumFound);
@@ -593,19 +595,19 @@ namespace WpfPort
                     {
                         totalResFound += 1;
                         DataRow rowRank = dtRank.NewRow();
-                        rowRank["startId"] = Convert.ToInt32(dtTargetdt.Rows[cnt - 14]["Id"]);
+                        rowRank["startId"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt - 14]["Id"]);
                         if (cnt >= dtTargetdt.Rows.Count)
                         {
                             cnt = dtTargetdt.Rows.Count - 1;
                         }
-                        rowRank["endId"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
+                        rowRank["endId"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
 
                         if (dtTargetdt.Rows.Count > cnt + 2)
-                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt + 2]["Id"]);
+                            rowRank["lastId"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt + 2]["Id"]);
                         else if (dtTargetdt.Rows.Count > cnt + 1)
-                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt + 1]["Id"]);
+                            rowRank["lastId"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt + 1]["Id"]);
                         else
-                            rowRank["lastId"] = Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
+                            rowRank["lastId"] = System.Convert.ToInt32(dtTargetdt.Rows[cnt]["Id"]);
                         rowRank["numFound"] = numFound;
                         rowRank["totalNumFound"] = totalNumFound;
                         rowRank["RecNo"] = dtRank.Rows.Count + 1;
@@ -671,7 +673,7 @@ namespace WpfPort
                         {
                             if (dtSearchTemp.Rows[0][dc] != null && dtSearchTemp.Rows[0][dc] != DBNull.Value && dtTargetdt.Rows[cnt - 14][dc.Caption] != null && dtTargetdt.Rows[cnt - 14][dc.Caption] != DBNull.Value)
                             {
-                                if (Convert.ToInt32(dtSearchTemp.Rows[0][dc]) == (int)dtTargetdt.Rows[cnt - 14][dc.Caption])
+                                if (System.Convert.ToInt32(dtSearchTemp.Rows[0][dc]) == (int)dtTargetdt.Rows[cnt - 14][dc.Caption])
                                 {
                                     numFound += 1;
                                     totalNumFound += 1;
@@ -687,7 +689,7 @@ namespace WpfPort
                                     {
                                         if (!(dtSearchTemp.Rows[i][dc] == null || dtSearchTemp.Rows[i][dc] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == DBNull.Value || dtTargetdt.Rows[cnt - 14 + i][dc.Caption] == null))
                                         {
-                                            if (Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == (int)dtTargetdt.Rows[cnt - 14 + i][dc.Caption])
+                                            if (System.Convert.ToInt32(dtSearchTemp.Rows[i][dc]) == (int)dtTargetdt.Rows[cnt - 14 + i][dc.Caption])
                                             {
                                                 totalNumFound += 1;
                                                 DataRow rowNumFound = dtNumFound.NewRow();
@@ -754,7 +756,7 @@ namespace WpfPort
                 {
 
                     DataRow[] rows = dtBaseTable.Select("Id > " + ((int)rowView["startId"] - 1).ToString() + " and Id < " + ((int)rowView["lastId"] + 1).ToString());
-                    int LastId = Convert.ToInt32(rowView["endId"]);
+                    int LastId = System.Convert.ToInt32(rowView["endId"]);
                     //if (rdBottomToTop.Checked)
                     //{
                     //    rows = dtBaseTable.Select("Id > " + ((int)rowView["lastId"] - 1).ToString() + " and Id < " + ((int)rowView["endId"] + 1).ToString());
@@ -773,7 +775,7 @@ namespace WpfPort
                     DataRow row3 = dtSerchRes.NewRow();
                     id = id + 1;
                     row3["Id"] = id;
-                    int DBId = Convert.ToInt32(rows[0]["DBId"]);
+                    int DBId = System.Convert.ToInt32(rows[0]["DBId"]);
                     row3["MatchType"] = "Database :";
                     row3["NumHits"] = SqlClass.GetDBNameById(DBId);
                     row3["NosFound"] = rowView["numFound"];
@@ -826,7 +828,7 @@ namespace WpfPort
                         row["RecordId"] = rows[i]["Id"].ToString();
                         if (false)//rdTopToBottom.Checked
                         {
-                            if (Convert.ToInt32(rows[i]["Id"]) != LastId && Convert.ToInt32(rows[i]["Id"]) != LastId - 1)
+                            if (System.Convert.ToInt32(rows[i]["Id"]) != LastId && System.Convert.ToInt32(rows[i]["Id"]) != LastId - 1)
                             {
                                 if (i == rows.Length - 1 || i == rows.Length - 2)
                                     row["RecordId"] = 0;
@@ -848,7 +850,7 @@ namespace WpfPort
                         }
                         else
                         {
-                            if (Convert.ToInt32(rows[i]["Id"]) != Convert.ToInt32(rowView["endId"]) && Convert.ToInt32(rows[i]["Id"]) != Convert.ToInt32(rowView["endId"]) + 1)
+                            if (System.Convert.ToInt32(rows[i]["Id"]) != System.Convert.ToInt32(rowView["endId"]) && System.Convert.ToInt32(rows[i]["Id"]) != System.Convert.ToInt32(rowView["endId"]) + 1)
                             {
                                 if (i == 0 || i == 1)
                                     row["RecordId"] = 0;
@@ -1033,7 +1035,7 @@ namespace WpfPort
 
                     if (dtInter.Rows.Count > 0)
                     {
-                        DBId = Convert.ToInt32(dtInter.Rows[0]["DBId"]);
+                        DBId = System.Convert.ToInt32(dtInter.Rows[0]["DBId"]);
                     }
                     MakeSearch(DBId);
                 }
@@ -1046,7 +1048,7 @@ namespace WpfPort
                     //    progressBar1.Value += 100 / checkedListBox1.CheckedItems.Count;
                     //    DataRow[] rows = dt.Select("DBName = '" + checkedListBox1.CheckedItems[i].ToString() + "'");
                     //    DBIdList += "," + rows[0]["DBId"].ToString();
-                    //    DBId = Convert.ToInt32(rows[0]["DBId"]);
+                    //    DBId = System.Convert.ToInt32(rows[0]["DBId"]);
                     //    MakeSearch(DBId);
                     //}
                     //progressBar1.Value = 100;
@@ -1100,14 +1102,14 @@ namespace WpfPort
                             {
                                 if (dtLastRows.Rows[i][dc].ToString().Trim() != "")
                                 {
-                                    string num = Convert.ToString(dtLastRows.Rows[i][dc]);
+                                    string num = System.Convert.ToString(dtLastRows.Rows[i][dc]);
                                     DataRow[] rowSum = dtSummary.Select("Number = '" + num + "'");
                                     if (rowSum.Length > 0)
                                     {
-                                        rowSum[0]["cnt"] = (Convert.ToInt32(rowSum[0]["cnt"]) + 1).ToString();
+                                        rowSum[0]["cnt"] = (System.Convert.ToInt32(rowSum[0]["cnt"]) + 1).ToString();
                                         rowSum[0]["Description"] = "Appears " + rowSum[0]["cnt"].ToString() + " times";
-                                        if (MaxCount < Convert.ToInt32(rowSum[0]["cnt"]))
-                                            MaxCount = Convert.ToInt32(rowSum[0]["cnt"]);
+                                        if (MaxCount < System.Convert.ToInt32(rowSum[0]["cnt"]))
+                                            MaxCount = System.Convert.ToInt32(rowSum[0]["cnt"]);
                                     }
                                     else
                                     {
@@ -1157,7 +1159,7 @@ namespace WpfPort
                                             if (!(rLast[dc1] == null || rLast[dc1] == DBNull.Value))
                                             {
                                                 if (rLast[dc1].ToString().Trim() != "")
-                                                    if ((Convert.ToInt32(rPair["p1"]) == Convert.ToInt32(rLast[dc]) && Convert.ToInt32(rPair["p2"]) == Convert.ToInt32(rLast[dc1])) || (Convert.ToInt32(rPair["p2"]) == Convert.ToInt32(rLast[dc]) && Convert.ToInt32(rPair["p1"]) == Convert.ToInt32(rLast[dc1])))
+                                                    if ((System.Convert.ToInt32(rPair["p1"]) == System.Convert.ToInt32(rLast[dc]) && System.Convert.ToInt32(rPair["p2"]) == System.Convert.ToInt32(rLast[dc1])) || (System.Convert.ToInt32(rPair["p2"]) == System.Convert.ToInt32(rLast[dc]) && System.Convert.ToInt32(rPair["p1"]) == System.Convert.ToInt32(rLast[dc1])))
                                                     {
                                                         CountPair++;
                                                         bBreak = true;
@@ -1200,14 +1202,18 @@ namespace WpfPort
 
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName == "Date")
-            {
-                Style _style = new Style(typeof(System.Windows.Controls.TextBox));
-                _style.Setters.Add(new Setter(System.Windows.Controls.TextBox.MaxLengthProperty, 5));
-                (e.Column as DataGridTextColumn).Binding = new System.Windows.Data.Binding(e.PropertyName) { Converter = "ExternalDatabaseList" };
-                (e.Column as DataGridTextColumn).EditingElementStyle = _style;
-                //(e.Column as DataGridTextColumn).= 5;
-            }
+
+            DataGridColumn d = e.Column;
+            
+            int i;
+            //if (e.PropertyName == "Date")
+            //{
+            //    Style _style = new Style(typeof(System.Windows.Controls.TextBox));
+            //    _style.Setters.Add(new Setter(System.Windows.Controls.TextBox.MaxLengthProperty, 5));
+            //    (e.Column as DataGridTextColumn).Binding = new System.Windows.Data.Binding(e.PropertyName) { Converter = ExternalDatabaseList };
+            //    (e.Column as DataGridTextColumn).EditingElementStyle = _style;
+            //    //(e.Column as DataGridTextColumn).= 5;
+            //}
         }
 
         private Image getButtonImage(string path)
@@ -1219,6 +1225,7 @@ namespace WpfPort
 
         private void ResultGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+           
             try
             {
                 if (e.RowIndex >= 0)
@@ -1226,52 +1233,45 @@ namespace WpfPort
                     {
                         foreach (DataRow row in dtNumFound.Rows)
                         {
-                            if (ResultGrid.Columns[e.ColumnIndex].DataPropertyName == row["col"].ToString() && ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value != null && ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value != DBNull.Value)
-                                if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == Convert.ToInt32(row["Id"]))
-                                {
-                                        if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecNo"].Value) == Convert.ToInt32(row["RecNo"]))
-                                        {
-                                            if (rdFullCellSearch.Checked || rdExectSearch12.Checked)
-                                                e.CellStyle.BackColor = Color.Red;
-                                            else if (rdCodeSearch.Checked)
-                                            {
+                            //                if (dataGrid.Columns[e.ColumnIndex].DataPropertyName == row["col"].ToString() && dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value != null && dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value != DBNull.Value)
+                            //                    if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == System.Convert.ToInt32(row["Id"]))
+                            //                    {
+                            //                        if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecNo"].Value) == System.Convert.ToInt32(row["RecNo"]))
+                            //                        {
 
-                                                int i = Convert.ToInt32(row["Sym"]);
-                                                if (i == 0)
-                                                    e.CellStyle.BackColor = Color.Red;
-                                                else if (i == 1)
-                                                    e.CellStyle.BackColor = Color.Blue;
-                                                else if (i == 2)
-                                                    e.CellStyle.BackColor = Color.Green;
-                                                else if (i == 3)
-                                                    e.CellStyle.BackColor = Color.Yellow;
-                                                else if (i == 4)
-                                                    e.CellStyle.BackColor = Color.Brown;
-                                                else if (i == 5)
-                                                    e.CellStyle.BackColor = Color.Pink;
-                                                else if (i == 6)
-                                                    e.CellStyle.BackColor = Color.Violet;
-                                                else if (i == 7)
-                                                    e.CellStyle.BackColor = Color.SteelBlue;
-                                                else if (i == 8)
-                                                    e.CellStyle.BackColor = Color.SpringGreen;
-                                                else if (i == 9)
-                                                    e.CellStyle.BackColor = Color.YellowGreen;
-                                                else
-                                                    e.CellStyle.BackColor = Color.Red;
+                            //                                int i = System.Convert.ToInt32(row["Sym"]);
+                            //                            if (i == 0)
+                            //                                e.CellStyle.BackColor = System.Drawing.Color.Red;
+                            //                            //    e.CellStyle.BackColor = Color.Blue;
+                            //                            //else if (i == 2)
+                            //                            //    e.CellStyle.BackColor = Color.Green;
+                            //                            //else if (i == 3)
+                            //                            //    e.CellStyle.BackColor = Color.Yellow;
+                            //                            //else if (i == 4)
+                            //                            //    e.CellStyle.BackColor = Color.Brown;
+                            //                            //else if (i == 5)
+                            //                            //    e.CellStyle.BackColor = Color.Pink;
+                            //                            //else if (i == 6)
+                            //                            //    e.CellStyle.BackColor = Color.Violet;
+                            //                            //else if (i == 7)
+                            //                            //    e.CellStyle.BackColor = Color.SteelBlue;
+                            //                            //else if (i == 8)
+                            //                            //    e.CellStyle.BackColor = Color.SpringGreen;
+                            //                            //else if (i == 9)
+                            //                            //    e.CellStyle.BackColor = Color.YellowGreen;
+                            //                            else
+                            //                                e.CellStyle.BackColor = System.Drawing.Color.Red;
 
-                                            }
-                                            else
-                                            {
-                                            }
 
-                                        }
 
-                                }
-                        }
-                        if (Convert.ToInt32(ResultGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == 0)
-                        {
-                            e.CellStyle.BackColor = Color.Aqua;
+                            //                        }
+
+                            //                    }
+                            //            }
+                            //            if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == 0)
+                            //            {
+                            //                e.CellStyle.BackColor = System.Drawing.Color.Aqua;
+                            //            }
                         }
                     }
             }
@@ -1280,14 +1280,14 @@ namespace WpfPort
             }
         }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        //public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+            
+        //}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+           
+        //}
     }
 }

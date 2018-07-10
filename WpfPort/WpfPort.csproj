@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>6F1961D2E531728B47BF37EE6887CADC9D6046AD</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9F6AD3E5FC63656BC2B4AC373845011E023F969B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>WpfPort_TemporaryKey.pfx</ManifestKeyFile>
