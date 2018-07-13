@@ -12,10 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Forms;
+
 using System.Data.SQLite;
 using System.Collections;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace WpfPort
 {
@@ -1203,9 +1204,12 @@ namespace WpfPort
         private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
-            DataGridColumn d = e.Column;
+            
             
             int i;
+            System.Windows.Controls.DataGrid s = sender as System.Windows.Controls.DataGrid;
+            var v = s.CurrentCell.Item;
+
             //if (e.PropertyName == "Date")
             //{
             //    Style _style = new Style(typeof(System.Windows.Controls.TextBox));
@@ -1223,71 +1227,110 @@ namespace WpfPort
             return ig;
         }
 
-        private void ResultGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        private void ResultGrid_CellPainting()
         {
-           
-            try
+
+            for (int RowIndex = 0; RowIndex < dataGrid.ItemContainerGenerator.Items.Count; RowIndex++)
             {
-                if (e.RowIndex >= 0)
-                    if (dtNumFound.Rows.Count > 0)
+                for (int ColumnIndex = 0; ColumnIndex < dataGrid.Columns.Count; ColumnIndex++)
+                {
+                    try
                     {
-                        foreach (DataRow row in dtNumFound.Rows)
+                        //if (e.RowIndex >= 0)
+                        if (dtNumFound.Rows.Count > 0)
                         {
-                            //                if (dataGrid.Columns[e.ColumnIndex].DataPropertyName == row["col"].ToString() && dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value != null && dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value != DBNull.Value)
-                            //                    if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == System.Convert.ToInt32(row["Id"]))
-                            //                    {
-                            //                        if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecNo"].Value) == System.Convert.ToInt32(row["RecNo"]))
-                            //                        {
+                            foreach (DataRow row in dtNumFound.Rows)
+                            {
+                               // var temp = dataGrid.ItemContainerGenerator.Items[15] as DataRowView;
+                                //Debug.WriteLine(temp.Row["RecordId"]);
+                                // Debug.WriteLine(dataGrid.Columns[ColumnIndex].GetCellContent(dataGrid.ItemContainerGenerator.Items[15]));
 
-                            //                                int i = System.Convert.ToInt32(row["Sym"]);
-                            //                            if (i == 0)
-                            //                                e.CellStyle.BackColor = System.Drawing.Color.Red;
-                            //                            //    e.CellStyle.BackColor = Color.Blue;
-                            //                            //else if (i == 2)
-                            //                            //    e.CellStyle.BackColor = Color.Green;
-                            //                            //else if (i == 3)
-                            //                            //    e.CellStyle.BackColor = Color.Yellow;
-                            //                            //else if (i == 4)
-                            //                            //    e.CellStyle.BackColor = Color.Brown;
-                            //                            //else if (i == 5)
-                            //                            //    e.CellStyle.BackColor = Color.Pink;
-                            //                            //else if (i == 6)
-                            //                            //    e.CellStyle.BackColor = Color.Violet;
-                            //                            //else if (i == 7)
-                            //                            //    e.CellStyle.BackColor = Color.SteelBlue;
-                            //                            //else if (i == 8)
-                            //                            //    e.CellStyle.BackColor = Color.SpringGreen;
-                            //                            //else if (i == 9)
-                            //                            //    e.CellStyle.BackColor = Color.YellowGreen;
-                            //                            else
-                            //                                e.CellStyle.BackColor = System.Drawing.Color.Red;
+                                //Debug.WriteLine(dataGrid.Columns[ColumnIndex].Header);
+
+                                //Debug.WriteLine(row["col"].ToString());
+                                //Debug.WriteLine(dataGrid.Columns[ColumnIndex].Header.ToString());
+
+                                if (dataGrid.Columns[ColumnIndex].Header.ToString()  == row["col"].ToString())
+                                {
+                                    var temp = dataGrid.ItemContainerGenerator.Items[RowIndex] as DataRowView;
+                                   // Debug.WriteLine(temp.Row["RecordId"]);
+                                    if (System.Convert.ToInt32(temp.Row["RecordId"]) == System.Convert.ToInt32(row["Id"]))
+                                    {
+                                        if (System.Convert.ToInt32(temp.Row["RecNo"]) == System.Convert.ToInt32(row["RecNo"]))
+                                        {
+
+                                            dataGrid.UpdateLayout();
+                                            var a = dataGrid.Items[RowIndex];
+                                            dataGrid.ScrollIntoView(a);
+                                            
+                                            DataGridRow firstRow = dataGrid.ItemContainerGenerator.ContainerFromItem(a) as DataGridRow;
+                                            System.Windows.Controls.DataGridCell firstColumnInFirstRow = dataGrid.Columns[ColumnIndex].GetCellContent(firstRow).Parent as System.Windows.Controls.DataGridCell;
+
+                                            firstColumnInFirstRow.Background = Brushes.Red;
+                                            //var a = row["Sym"];
+                                            //int i = System.Convert.ToInt32(row["Sym"]);
+
+                                            //if (i == 0)
+                                            //{
+
+                                            //}
+                                            //.CellStyle.BackColor = System.Drawing.Color.Red;
+                                            //    e.CellStyle.BackColor = Color.Blue;
+                                            //else if (i == 2)
+                                            //    e.CellStyle.BackColor = Color.Green;
+                                            //else if (i == 3)
+                                            //    e.CellStyle.BackColor = Color.Yellow;
+                                            //else if (i == 4)
+                                            //    e.CellStyle.BackColor = Color.Brown;
+                                            //else if (i == 5)
+                                            //    e.CellStyle.BackColor = Color.Pink;
+                                            //else if (i == 6)
+                                            //    e.CellStyle.BackColor = Color.Violet;
+                                            //else if (i == 7)
+                                            //    e.CellStyle.BackColor = Color.SteelBlue;
+                                            //else if (i == 8)
+                                            //    e.CellStyle.BackColor = Color.SpringGreen;
+                                            //else if (i == 9)
+                                            //    e.CellStyle.BackColor = Color.YellowGreen;
+                                            //else
+                                            //    e.CellStyle.BackColor = System.Drawing.Color.Red;
+                                        }
+                                    }
+
+                                }
 
 
-
-                            //                        }
-
-                            //                    }
-                            //            }
-                            //            if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == 0)
-                            //            {
-                            //                e.CellStyle.BackColor = System.Drawing.Color.Aqua;
-                            //            }
+                            }
                         }
+                        //if (System.Convert.ToInt32(dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value) == 0)
+                        //{
+                        //    e.CellStyle.BackColor = System.Drawing.Color.Aqua;
+                        //}
+
+
                     }
-            }
-            catch (Exception ex)
-            {
+                    catch (Exception ex)
+                    {
+                    }
+                }
             }
         }
 
+      
+
+        private void dataGrid_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            ResultGrid_CellPainting();
+        }
+
         //public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        //{
-            
+        //{&& dataGrid.Rows[e.RowIndex].Cells["RecordId"].Value != null
+
         //}
 
         //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         //{
-           
+
         //}
     }
 }
