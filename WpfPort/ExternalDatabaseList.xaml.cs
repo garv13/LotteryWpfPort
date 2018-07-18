@@ -1229,7 +1229,7 @@ namespace WpfPort
 
         private void ResultGrid_CellPainting()
         {
-
+            int j = 0;
             for (int RowIndex = 0; RowIndex < dataGrid.ItemContainerGenerator.Items.Count; RowIndex++)
             {
                 for (int ColumnIndex = 0; ColumnIndex < dataGrid.Columns.Count; ColumnIndex++)
@@ -1258,15 +1258,26 @@ namespace WpfPort
                                     {
                                         if (System.Convert.ToInt32(temp.Row["RecNo"]) == System.Convert.ToInt32(row["RecNo"]))
                                         {
-
+                                            j++;
                                             dataGrid.UpdateLayout();
+
                                             var a = dataGrid.Items[RowIndex];
-                                            dataGrid.ScrollIntoView(a);
-                                            
-                                            DataGridRow firstRow = dataGrid.ItemContainerGenerator.ContainerFromItem(a) as DataGridRow;
+                                            //dataGrid.ScrollIntoView(a);
+
+                                            DataGridRow firstRow = dataGrid.ItemContainerGenerator.ContainerFromIndex(RowIndex) as DataGridRow;
                                             System.Windows.Controls.DataGridCell firstColumnInFirstRow = dataGrid.Columns[ColumnIndex].GetCellContent(firstRow).Parent as System.Windows.Controls.DataGridCell;
 
-                                            firstColumnInFirstRow.Background = Brushes.Red;
+
+                                            //if (j == 15)
+                                            //{
+                                                // firstColumnInFirstRow.Content = "lol ahahahahahaha";
+                                                
+                                                firstColumnInFirstRow.Background = Brushes.Red;
+                                            //}
+                                            //else { }
+                                                //firstColumnInFirstRow.Background = Brushes.Blue;
+
+
                                             //var a = row["Sym"];
                                             //int i = System.Convert.ToInt32(row["Sym"]);
 
